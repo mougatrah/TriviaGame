@@ -1,8 +1,6 @@
 var game = {
     currentQ: 0,
-    time: 30,
-    questionInterval: null,
-    timerInterval: null,
+    counting: false,
     questions: [
         {
             q: "how many?",
@@ -18,27 +16,52 @@ var game = {
 
     ],
 
-    updateTime(arg){
-        if(game.time > 0){
-        game.time -= arg;
-        $("#time").html(game.time);
-    }else{
-        game.time = 0;
-        game.clearTimer();
-    }
-    },
+    setCountdown(){
 
-    clearTimer(){
         
-        clearInterval(game.interval);
-        game.time = 30;
+        console.log("seting up countdown");
+        var time = 10;
+        var id = setInterval(count, 1000);
+        
+        if(game.counting){
+            cancel();
+            game.setCountdown();
+        }
+
+        function count(){
+          
+            if(time == 0){
+                console.log("done");
+                clearInterval(id);
+                game.counting = false;
+                game.timeOut();
+            }else{
+                game.counting = true;
+                console.log('counting');
+                time--;
+                $("#time").text(time);
+            }
+        };
+
+        function cancel(){
+
+            console.log("CANCELLING");
+            clearInterval(id);
+            game.counting = false;
+        }
+
     },
 
-    setTimer(){
-      interval = setInterval(game.changQ, 5000, 5)  
+    timeOut(){
+        
+        var id = setTimeout(game.changeQ, 5000);
+
+        
     },
 
     setQ(qObject) {
+
+        console.log("setting question")
         if (qObject) {
             var q = qObject.q;
             var a = qObject.a;
@@ -46,15 +69,16 @@ var game = {
             $("#question").text(q);
 
             for (let i in a) {
-              $("#" + i.toString() ).text(a[i]);
+                $("#" + i.toString()).text(a[i]);
             }
         }
     },
 
-    changeQ(arg) {
+    changeQ() {
         game.setQ(game.questions[game.currentQ]);
+        console.log("changing question");
+        game.setCountdown();
         game.currentQ++;
-        
         console.log(game.currentQ > game.questions.length);
         if (game.currentQ > game.questions.length) {
             console.log("HGEYE");
@@ -64,3 +88,5 @@ var game = {
     },
 
 }
+
+game.changeQ();
