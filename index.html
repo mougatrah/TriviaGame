@@ -5,27 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
     <title>Trivia Game</title>
 </head>
 <body>
 
     <div class="container-fluid border">
         <div class="row m-auto border border-info text-center">
-            <div class="col-4 border m-auto">
-                <img src="https://via.placeholder.com/350x150" alt="placeholder"/>
+            <div class="col-8 border m-auto">
+                <img src="https://via.placeholder.com/350x150" class="img img-fluid" alt="placeholder"/>
+                <div class="col-12 border border-secondary"><span id="time">0</span> seconds left</div>
             </div>
+            
         </div>
         <div class="row m-auto border border-primary">
-                <div class="col-4 border m-auto text-center">
-                    <form class="m-auto">
-                        <label class="m-auto" >Q: Yadda yadda yadda</label>
-                        <br>
-                        <button id="A">A: Blah blah blah</button>
-                        <br>
-                        <button id="B">B: Blah blah blah</button>
-                        <br>
-                        <button id="C">C: Blah blah blah</button>
-
+                <div class="col-6 border border-warning m-auto">
+                    <form class="text-center">
+                        <label id="question" class="row" ><div class="col-12">Q: Yadda yadda yadda</div></label>
+                        <div class="row">
+                        <button id="0" class="btn btn-primary m-1 col-12">A: Blah blah blah</button>
+                  
+                        <button id="1" class="btn btn-primary m-1 col-12">B: Blah blah blah</button>
+                     
+                        <button id="2" class="btn btn-primary m-1 col-12">B: Blah blah blah</button>
+                    </div>
                     </form>    
                 </div>
         </div>
