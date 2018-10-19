@@ -1,3 +1,19 @@
-#splash{
-   height: 100vh;
+html, .container-fluid{
+    font-size: 24px;
+    font-family: 'Amatic SC', cursive;
+    color:white;
+    background-color: black;
+}
+
+#time{
+    font-family: 'Cabin Sketch', cursive;
+    color: red;
+}
+
+#answer{
+    background-color: darkolivegreen;
+}
+
+.choice{
+    background-color: firebrick;
 }

@@ -1,31 +1,54 @@
 
 var game = {
+
     currentQ: 0,
     answersCorrect: 0,
     answersWrong: 0,
     counting: false,
     timeoutID: null,
     time: 10,
-
+    images: {
+        title: "./assets/images/saw.png",
+        counting: "./assets/images/jigsaw.png",
+        wrong: "./assets/images/wrong.png",
+        right: "./assets/images/right.png",
+        timeout: "./assets/images/timeout.png",
+        gameover: "./assets/images/gameover.png "
+    },
     questions: [
         {
-            q: "how many?",
-            a: ["2", "5", "42"],
-            c: "5"
+            q: "How many Saw films are there?",
+            a: ["2", "8", "11"],
+            c: "8"
         },
 
         {
-            q: "why?",
-            a: ["not", "gonna", "lie"],
-            c: "not"
+            q: "How many Saw video games are ther?",
+            a: ["1", "2", "5"],
+            c: "2"
+        },
+        {
+            q: "What is Saw's antagonist's alias?",
+            a: ["jigsaw", "clownface","trikey the killer"],
+            c: "jigsaw"
+        },
+        {
+            q: "In Saw 2, how many people were trapped in the house?",
+            a:["3", "5", "8"],
+            c: "8"
+
+        },
+        {
+            q: "Which actor plays jigsaw?",
+            a: ["tobin bell", "cary elwes", "hans raith"],
+            c: "tobin bell"
         }
+
 
     ],
 
     //timer stuff
     countDown() {
-
-
         if (game.time > 0) {
             $("#time").text(game.time);
             game.time--;
@@ -33,7 +56,6 @@ var game = {
         } else {
             game.timeOut();
         }
-
     },
 
     startTimer(seconds) {
@@ -57,10 +79,14 @@ var game = {
         game.answersCorrect = 0;
         game.answersWrong = 0;
         game.counting = false;
+        game.timeoutID = null;
+        game.time = 10;
+
 
         $("#main").hide();
         $("#splash").show();
-        $("#splashImg").src;
+        $("#mainImg").attr("src", game.images.title);
+        $("#splashImg").attr("src" , game.images.title);       
         $("#splashMessage").text("Would you like to play a game?");
         $("#answer").removeClass("setup");
         $("#answer").addClass("start");
@@ -71,124 +97,85 @@ var game = {
         if (btn.hasClass("setup")) {
             game.setup();
         }
-
-
         if (btn.hasClass("start")) {
-            console.log("start clicked");
             btn.removeClass("start");
             game.changeQ();
         } else if (btn.hasClass('choice')) {
             game.answerChosen(btn);
         }
-
-
     },
     //end update stuff
 
     //Q stuff
     setQ(qObject) {
-
-        console.log("setting question")
         if (qObject) {
             var q = qObject.q;
             var a = qObject.a;
-
             $("#question").text(q);
             for (let i in a) {
                 $("#" + i.toString()).text(a[i]);
-                console.log("this button says: " + $("#" + i.toString()).text());
-
             }
         }
-
     },
 
     changeQ() {
+        $("#mainImg").attr("src", game.images.counting);
         game.currentQ++;
-        
-        console.log("CURRENT Q IS MORE THAN # OF QS is " + (game.currentQ > game.questions.length).toString());
         if (game.currentQ > game.questions.length) {
-
             game.endGame();
         } else {
             $("#splash").hide();
             $("#main").show();
-
             game.stopTimer();
             game.startTimer(10);
-            console.log("changing question");
             game.setQ(game.questions[game.currentQ - 1]);
-
-         
         }
-
     },
-//end Q stuff
+    //end Q stuff
 
-//Answer or lack there of
+    //Answer or lack there of
     answerChosen(elem) {
-        console.log("answer was chosen");
-        console.log("CURRENT Q: " + game.currentQ);
-
-        if (game.questions[game.currentQ-1]) {
-            if (elem.text() == game.questions[game.currentQ-1].c) {
-
+        if (game.questions[game.currentQ - 1]) {
+            if (elem.text() == game.questions[game.currentQ - 1].c) {
+                $("#splashImg").attr("src", game.images.right); 
                 game.answersCorrect++;
             } else {
-
+                $("#splashImg").attr("src", game.images.wrong);
                 game.answersWrong++;
             }
-
-            $("#splashImg").src;
-            console.log("You chose " + elem.text())
+            
             $("#splashMessage").text("You chose " + elem.text());
-
-            console.log("current currect answer is: " + game.questions[game.currentQ - 1].c)
-            $("#answer").text("Answer: " + game.questions[game.currentQ - 1].c);
+            $("#answer").text("The correct answer was " + game.questions[game.currentQ - 1].c);
         }
-
         game.stopTimer();
-        console.log("setting timeout to change Q after answer");
         setTimeout(game.changeQ, 5000);
-
         $("#splash").show();
         $("#main").hide();
-
     },
 
     timeOut() {
-        console.log("time ran out");
         game.answersWrong++;
-        $("#splashImg").src;
-        $("#splashMessage").text("You ran out of time.");
-        if (game.questions[game.currentQ-1]) {
-            console.log("current Q :"+ game.currentQ-1);
-
-            $("#answer").text("Answer: " + game.questions[game.currentQ-1].c);
+        $("#splashImg").attr("src", game.images.timeout);
+        $("#splashMessage").text("You have ran out of time.");
+        if (game.questions[game.currentQ - 1]) {
+            $("#answer").text("The correct answer was " + game.questions[game.currentQ - 1].c);
         }
-
         $("#splash").show();
         $("#main").hide();
         game.stopTimer();
-        
-        console.log("setting timeout to change Q after time out");
-
         setTimeout(game.changeQ, 5000);
-
-
-
     },
-//end answer stuff
+    //end answer stuff
 
-//end stuff
+    //end stuff
     endGame() {
-        console.log("ending game");
-        $("#splashMessage").text("Correct: " + game.answersCorrect + " Incorrect: " + game.answersWrong + " Play again?");
+        $("#splashMessage").text("You answered " + game.answersCorrect + " correctly and " + game.answersWrong + " incorrectly  . Play again?");
         $("#answer").text("Yes").addClass("setup");
         $("#main").hide();
+        $("#splashImg").attr("src", game.images.gameover);
         $("#splash").show();
     },
-//end end stuff
+    //end end stuff
 }
 //setup when ready
 $(document).ready(
