@@ -1,39 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="assets/javascript/app.js"></script>
     <title>Trivia Game</title>
 </head>
+
 <body>
 
-    <div class="container-fluid border">
+    <div id="splash" class="container-fluid bg-warning m-auto text-center" style="height: 100vh;">
+
         <div class="row m-auto border border-info text-center">
             <div class="col-8 border m-auto">
-                <img src="https://via.placeholder.com/350x150" class="img img-fluid" alt="placeholder"/>
-                <div class="col-12 border border-secondary"><span id="time">0</span> seconds left</div>
+                <img id="splashImg" src="https://via.placeholder.com/350x150" class="img img-fluid" alt="placeholder" />
+                <div class="col-12 border border-secondary" id="splashMessage">Hello</div>
             </div>
-            
         </div>
+
         <div class="row m-auto border border-primary">
-                <div class="col-6 border border-warning m-auto">
-                    <form class="text-center">
-                        <label id="question" class="row" ><div class="col-12">Q: Yadda yadda yadda</div></label>
-                        <div class="row">
-                        <button id="0" class="btn btn-primary m-1 col-12">A: Blah blah blah</button>
-                  
-                        <button id="1" class="btn btn-primary m-1 col-12">B: Blah blah blah</button>
-                     
-                        <button id="2" class="btn btn-primary m-1 col-12">B: Blah blah blah</button>
-                    </div>
-                    </form>    
-                </div>
+            <div class="col-6 border border-warning m-auto">
+                <button id="answer" class="btn btn-info m-1 col-12 start">YES</button>
+            </div>
         </div>
+
     </div>
-    
+
+    <div id="main" class="container-fluid border" style="display: none;">
+
+        <div class="row m-auto border border-info text-center">
+            <div class="col-8 border m-auto">
+                <img id="mainImg" src="https://via.placeholder.com/350x150" class="img img-fluid" alt="placeholder" />
+                <div class="col-12 border border-secondary"><span id="time">10</span> seconds left</div>
+            </div>
+        </div>
+
+        <div class="row m-auto border border-primary">
+            <div class="col-6 border border-warning m-auto">
+                <div class="text-center">
+                    <label class="row">
+                        <div id="question" class="col-12">Q: Yadda yadda yadda</div>
+                    </label>
+                    <div class="row">
+                        <button id="0" class="choice btn btn-primary m-1 col-12">A: Blah blah blah</button>
+
+                        <button id="1" class="choice btn btn-primary m-1 col-12">B: Blah blah blah</button>
+
+                        <button id="2" class="choice btn btn-primary m-1 col-12">B: Blah blah blah</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 </body>
+
 </html>
