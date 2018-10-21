@@ -82,15 +82,14 @@ var game = {
         game.timeoutID = null;
         game.time = 10;
 
-
-        $("#main").hide();
-        $("#splash").show();
-        $("#mainImg").attr("src", game.images.title);
-        $("#splashImg").attr("src" , game.images.title);       
+        $("#splashImg").attr({src: game.images.title, alt: "Saw Trivia title image"});    
         $("#splashMessage").text("Would you like to play a game?");
         $("#answer").removeClass("setup");
         $("#answer").addClass("start");
 
+        $("#main").hide();
+        $("#splash").show();
+  
     },
 
     update(btn) {
@@ -119,7 +118,7 @@ var game = {
     },
 
     changeQ() {
-        $("#mainImg").attr("src", game.images.counting);
+        $("#mainImg").attr({src: game.images.counting, alt: "Image of Jigsaw and the words tick tock"});
         game.currentQ++;
         if (game.currentQ > game.questions.length) {
             game.endGame();
@@ -137,10 +136,10 @@ var game = {
     answerChosen(elem) {
         if (game.questions[game.currentQ - 1]) {
             if (elem.text() == game.questions[game.currentQ - 1].c) {
-                $("#splashImg").attr("src", game.images.right); 
+                $("#splashImg").attr({src: game.images.right, alt: "Image of Jigsaw and the word correct"}); 
                 game.answersCorrect++;
             } else {
-                $("#splashImg").attr("src", game.images.wrong);
+                $("#splashImg").attr({src: game.images.wrong, alt: "Image of Jigsaw and the word wrong"});
                 game.answersWrong++;
             }
             
@@ -155,15 +154,16 @@ var game = {
 
     timeOut() {
         game.answersWrong++;
-        $("#splashImg").attr("src", game.images.timeout);
+        $("#splashImg").attr({src: game.images.wrong, alt: "Image of Jigsaw and the words clock ran out"});
         $("#splashMessage").text("You have ran out of time.");
         if (game.questions[game.currentQ - 1]) {
             $("#answer").text("The correct answer was " + game.questions[game.currentQ - 1].c);
         }
-        $("#splash").show();
-        $("#main").hide();
         game.stopTimer();
         setTimeout(game.changeQ, 5000);
+        $("#splash").show();
+        $("#main").hide();
+        
     },
     //end answer stuff
 
@@ -171,8 +171,8 @@ var game = {
     endGame() {
         $("#splashMessage").text("You answered " + game.answersCorrect + " correctly and " + game.answersWrong + " incorrectly  . Play again?");
         $("#answer").text("Yes").addClass("setup");
+        $("#splashImg").attr({src: game.images.wrong, alt: "Image of Jigsaw and the words game over"});
         $("#main").hide();
-        $("#splashImg").attr("src", game.images.gameover);
         $("#splash").show();
     },
     //end end stuff

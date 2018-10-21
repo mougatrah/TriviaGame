@@ -5,12 +5,20 @@ html, .container-fluid{
     background-color: black;
 }
 
+#main{
+    display:none;
+}
+
 #time{
     font-family: 'Cabin Sketch', cursive;
     color: red;
 }
 
 #answer{
+    background-color: darkolivegreen;
+}
+
+#question{
     background-color: darkolivegreen;
 }
 
