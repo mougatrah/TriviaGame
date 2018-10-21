@@ -1,6 +1,6 @@
 html, .container-fluid{
     font-size: 24px;
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Amatic SC', Arial, Helvetica, sans-serif;
     color:white;
     background-color: black;
 }
@@ -10,7 +10,7 @@ html, .container-fluid{
 }
 
 #time{
-    font-family: 'Cabin Sketch', cursive;
+    font-family: 'Cabin Sketch', Arial, Helvetica, sans-serif;
     color: red;
 }
 
