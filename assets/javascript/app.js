@@ -1,6 +1,6 @@
 
 var game = {
-
+    volume: 0.3,
     currentQ: 0,
     answersCorrect: 0,
     answersWrong: 0,
@@ -59,6 +59,11 @@ var game = {
     },
 
     startTimer(seconds) {
+        
+        $("#ticktock").get(0).load();
+        $("#ticktock").get(0).volume = game.volume;
+        $("#ticktock").get(0).play();
+
         if (!game.counting) {
             game.time = seconds;
             game.counting = true;
@@ -68,13 +73,24 @@ var game = {
     },
 
     stopTimer() {
+        
+        $("#ticktock").get(0).pause();
+        $("#ticktock").get(0).currentTime = 0;
+
         clearTimeout(game.timeoutID);
         game.counting = false;
     },
     //end timer stuff
+    playAudio(id){
+        
+        $("#"+id.toString()).get(0).load();
+        $("#"+id.toString()).get(0).volume = game.volume;
+        $("#"+id.toString()).get(0).play();
+    },
 
     //update stuff
     setup() {
+        game.playAudio("theme");
         game.currentQ = 0;
         game.answersCorrect = 0;
         game.answersWrong = 0;
@@ -93,18 +109,35 @@ var game = {
     },
 
     update(btn) {
+    
         if (btn.hasClass("setup")) {
             game.setup();
-        }
+        }else
         if (btn.hasClass("start")) {
             btn.removeClass("start");
             game.changeQ();
-        } else if (btn.hasClass('choice')) {
+        } else if (btn.hasClass("choice")) {
+            game.playAudio("slash");
             game.answerChosen(btn);
+        }else if(btn.hasClass('volume')){
+            if(game.volume > 0){
+                game.volume = 0;
+                $("#slash").get(0).volume = game.volume;
+                $("#scream").get(0).volume = game.volume;
+                $("#theme").get(0).volume = game.volume;
+                $("#ticktock").get(0).volume = game.volume;
+                
+            }else{
+                game.volume = 0.3;
+                $("#slash").get(0).volume = game.volume;
+                $("#scream").get(0).volume = game.volume;
+                $("#theme").get(0).volume = game.volume;
+                $("#ticktock").get(0).volume = game.volume;
+            }
         }
     },
     //end update stuff
-
+  
     //Q stuff
     setQ(qObject) {
         if (qObject) {
@@ -153,6 +186,7 @@ var game = {
     },
 
     timeOut() {
+        game.playAudio("scream");
         game.answersWrong++;
         $("#splashImg").attr({src: game.images.wrong, alt: "Image of Jigsaw and the words clock ran out"});
         $("#splashMessage").text("You have ran out of time.");
