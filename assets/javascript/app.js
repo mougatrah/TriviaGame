@@ -205,7 +205,7 @@ var game = {
     endGame() {
         $("#splashMessage").text("You answered " + game.answersCorrect + " correctly and " + game.answersWrong + " incorrectly  . Play again?");
         $("#answer").text("Yes").addClass("setup");
-        $("#splashImg").attr({src: game.images.wrong, alt: "Image of Jigsaw and the words game over"});
+        $("#splashImg").attr({src: game.images.gameover, alt: "Image of Jigsaw and the words game over"});
         $("#main").hide();
         $("#splash").show();
     },
